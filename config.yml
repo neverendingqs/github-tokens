@@ -1,10 +1,17 @@
 org: neverendingqs
 
+# https://docs.github.com/en/rest/reference/apps#create-an-installation-access-token-for-an-app
 tokens:
-  # https://docs.github.com/en/rest/reference/apps#create-an-installation-access-token-for-an-app
   - repository: serverless-dotenv-example
     permissions:
       contents: write
       pull_requests: write
     targets:
       - serverless-dotenv-example
+      
+  - repository: serverless-dotenv-plugin
+    permissions:
+      contents: write
+      pull_requests: write
+    targets:
+      - serverless-dotenv-plugin
