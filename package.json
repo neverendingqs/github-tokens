@@ -19,6 +19,7 @@
   "dependencies": {
     "dotenv": "^10.0.0",
     "octokit": "^1.6.2",
-    "tweetsodium": "0.0.5"
+    "tweetsodium": "0.0.5",
+    "yaml": "^1.10.2"
   }
 }

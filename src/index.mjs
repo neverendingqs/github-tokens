@@ -1,11 +1,16 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
+import { readFile } from 'fs/promises';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
 import { Octokit } from 'octokit';
 import { createAppAuth } from '@octokit/auth-app';
 import sodium from 'tweetsodium';
+import YAML from 'yaml';
 
-const org = 'neverendingqs';
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const installationId = process.env.GH_INSTALLATION_ID;
 
@@ -17,6 +22,11 @@ const octokit = new Octokit({
     installationId,
   },
 });
+
+async function getConfig() {
+  const file = await readFile(`${__dirname}/../config.yml`, 'utf-8');
+  return YAML.parse(file);
+}
 
 async function createOrUpdateRepoSecret({ repo, secret }) {
   const { data: { key_id, key } } = await octokit.rest.actions.getRepoPublicKey({
@@ -40,16 +50,23 @@ async function createOrUpdateRepoSecret({ repo, secret }) {
   });
 }
 
-const { data: { token }} = await octokit.rest.apps.createInstallationAccessToken({
-  installation_id: installationId,
-});
+const { org, tokens } = await getConfig();
+console.log({ org, tokens });
 
-const response = await createOrUpdateRepoSecret({
-  repo: 'serverless-dotenv-example',
-  secret: {
-    key: 'REPO_GITHUB_TOKEN',
-    value: token
-  }
-});
+for(const { permissions, repository, targets } of tokens) {
+  console.log('Processing', { repository, permissions });
 
-console.log(response);
+  const { data: { token }} = await octokit.rest.apps.createInstallationAccessToken({
+    installation_id: installationId,
+    permissions,
+    repositories: targets
+  });
+
+  await createOrUpdateRepoSecret({
+    repo: repository,
+    secret: {
+      key: 'REPO_GITHUB_TOKEN',
+      value: token
+    }
+  });
+}
