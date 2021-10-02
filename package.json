@@ -1,0 +1,19 @@
+{
+  "name": "github-tokens",
+  "version": "0.0.1",
+  "description": "Generate GitHub access tokens for your repositories so you don't have to use a personal access token.",
+  "main": "src/index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neverendingqs/github-tokens.git"
+  },
+  "author": "neverendingqs",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/neverendingqs/github-tokens/issues"
+  },
+  "homepage": "https://github.com/neverendingqs/github-tokens#readme"
+}
