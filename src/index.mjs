@@ -53,19 +53,19 @@ async function createOrUpdateRepoSecret({ repo, secret }) {
 const { org, tokens } = await getConfig();
 console.log({ org, tokens });
 
-for(const { permissions, repository, targets } of tokens) {
+for(const { name, permissions, repository, targets } of tokens) {
   console.log('Processing', { repository, permissions });
 
   const { data: { token }} = await octokit.rest.apps.createInstallationAccessToken({
     installation_id: installationId,
     permissions,
-    repositories: targets
+    repositories: targets || [repository]
   });
 
   await createOrUpdateRepoSecret({
     repo: repository,
     secret: {
-      key: 'REPO_GITHUB_TOKEN',
+      key: name || 'REPO_GITHUB_TOKEN',
       value: token
     }
   });

@@ -52,6 +52,7 @@ Update [config.yml](./config.yml) appropriately for your repositories.
 
 * `org`: the name of your org
 * `tokens`: an array of repositories to configure
+  * `name`: name of the secret to use (default: `REPO_GITHUB_TOKEN`)
   * `repository`: name of repository to create the token in
   * `permissions`: permissions to set for that token ([full list](https://docs.github.com/en/rest/reference/apps#create-an-installation-access-token-for-an-app))
-  * `targets`: repositories that token has access to
+  * `targets`: repositories that token has access to (default: `[<repository>]`, i.e. itself only)

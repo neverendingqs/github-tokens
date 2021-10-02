@@ -5,12 +5,8 @@ tokens:
     permissions:
       contents: write
       pull_requests: write
-    targets:
-      - serverless-dotenv-example
 
   - repository: serverless-dotenv-plugin
     permissions:
       contents: write
       pull_requests: write
-    targets:
-      - serverless-dotenv-plugin
