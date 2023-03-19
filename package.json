@@ -17,9 +17,9 @@
   },
   "homepage": "https://github.com/neverendingqs/github-tokens#readme",
   "dependencies": {
-    "dotenv": "^16.0.0",
-    "octokit": "^1.7.1",
+    "dotenv": "^16.0.3",
+    "octokit": "^2.0.14",
     "tweetsodium": "0.0.5",
-    "yaml": "^2.0.1"
+    "yaml": "^2.2.1"
   }
 }
